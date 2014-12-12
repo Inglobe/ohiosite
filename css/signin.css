@@ -1,0 +1,113 @@
+body {
+  padding-top: 10px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.banner {
+  height: 150px;
+  position: inherit;
+  background: url(../img/banner.JPG);
+  background-size: cover;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.footer {
+  background-color: #2b93e1;
+  height: 60px;
+  line-height: 60px;
+  margin-top: 10px;
+  padding-left: 20px;
+  color: #ffffff;
+  background: -moz-linear-gradient(top, #2b93e1 0%, #202287 100%); 
+  background: -webkit-linear-gradient(top, #2b93e1 0%,#202287 100%);
+}
+
+.header {
+  color: -moz-linear-gradient(top, #ffffff 0%, #2b93e1 100%); 
+  color: -webkit-linear-gradient(top, #ffffff 0%,#2b93e1 100%);
+  height: 80px;
+  line-height: 80px;
+  margin-top: 5px;
+  font-size: 2em;
+  font-style: bold;
+  padding-left: 20px;
+  position: inherit;
+  width: 100%;
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #5a5a5a 100%); 
+  background: -webkit-linear-gradient(top, #ffffff 0%,#5a5a5a 100%); 
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+#header-content {
+    width: 1000px;
+    margin: 0 auto; 
+    overflow: hidden;
+}
+
+#header-content a:hover {
+  text-decoration: none;
+}
+
+#header-content h4 {
+  float: left;
+  font-size: 50px; 
+  text-transform: uppercase; 
+  letter-spacing: 10px;
+}
+#header-content nav {
+  float: right;
+  margin-right: 20px;
+  text-decoration: none;
+}
+#header-content nav li {
+  float: left;
+  font-size: 20px;
+  margin: 0 0 0 50px;
+  list-style: none;
+}
+
+.logo {
+  background: url(../img/bull.png) no-repeat center center;
+  background-size: contain;
+  width:250px;
+  height:180px;
+}
+
