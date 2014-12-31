@@ -1,0 +1,140 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+article, figcaption, figure, footer, header, hgroup, nav, section {
+	display: block;
+} 
+
+
+body {
+	background: #2b93e1;
+	font-size: 1em;
+	font-family: Calibri;
+}
+
+a {
+	color: #FFF;
+	font-weight: bold;
+	text-decoration: none;
+	-ms-transition: all 0.5s ease-in;
+	-moz-transition: all 0.5s ease-in;
+	-o-transition: all 0.5s ease-in;
+	-webkit-transition: all 0.5s ease-in;
+	transition: all 0.5s ease-in;
+}
+
+a:hover {
+	color: #229f06;
+	text-decoration: none;
+	-ms-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	-webkit-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+
+header, section#contenido, footer {
+	background: #69bd56;
+	margin: 0 auto;
+	max-width: 90%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+header h1, nav {
+	display: inline-block;
+	font-style: bold;
+	max-width: 100%;
+	vertical-align: middle;
+}
+
+header {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+nav ul {
+	list-style: none;
+}
+
+nav li {
+	display: inline-block;
+	padding: 0.1em;
+	vertical-align: top;
+}
+
+nav a {
+	color: #FFF;
+	display: block;
+	font-size: 1.4em;
+	padding: 0.2em;
+	-ms-transition: all 0.5s ease-in;
+	-moz-transition: all 0.5s ease-in;
+	-o-transition: all 0.5s ease-in;
+	-webkit-transition: all 0.5s ease-in;
+	transition: all 0.5s ease-in;
+}
+
+
+
+section#contenido, aside {
+	background: #1e6381;
+	margin: 0 auto;
+	max-width: 90%;
+}
+
+footer {
+	background: #69bd56;
+	color: #FFF;
+	padding: 0.75em 0;
+	font-size: 1.1em;
+}
+
+@media(min-width: 1081px) {
+	header h1 {
+		text-align: left;
+		width: 35%;
+	}
+
+	header nav {
+		text-align: right;
+		width: 60&;
+	}
+}
+@media(max-width: 1080px) {
+	nav li {
+		font-size: 1.3em;
+	}
+
+	article#galeria-inicio {
+		width: 90%;
+	}
+
+	aside {
+		width: 20%;
+	}
+}
+
+@media(max-width: 600px) {
+	nav li {
+		display: inline-block;
+		width: 98%;
+		margin: 0px;
+	}
+}
+
+.table{
+ 	width: 100%;
+ }
+
+ table thead {
+ 	background: #FFF;
+ }
+
+ table tbody {
+ 	text-align: center;
+ }
