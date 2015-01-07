@@ -3,17 +3,17 @@ $(function() {
  
       // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
       emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-      email = $( "#email" ),
-      username = $( "#name" ),
-      allFields = $( [] ).add( email ).add( username ),
+      mail_fg = $( "#mail_fg" ),
+      user_fg = $( "#user_fg" ),
+      allFields = $( [] ).add( mail_fg ).add( user_fg ),
       tips = $( ".validateTips" );
  
     function emailPass() {
-      if(!document.getElementById('name').value){
+      if(!document.getElementById('user_fg').value){
         document.getElementById('name_spn').innerHTML='Mandatory field';
       } else {
         document.getElementById('name_spn').innerHTML='';
-        if(!document.getElementById('mail').value){
+        if(!document.getElementById('mail_fg').value){
           document.getElementById('mail_spn').innerHTML='Mandatory field';
         } else {
           document.getElementById('mail_spn').innerHTML='';

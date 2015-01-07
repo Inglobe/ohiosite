@@ -20,13 +20,18 @@ function passCheck($user, $pass){
 
 	$passQuery = @mysql_query('SELECT * FROM usuarios WHERE usu_password = "'.mysql_real_escape_string ($pass).'" && usu_codigo = "'.mysql_real_escape_string ($user).'"');
 		if($existePass = @mysql_fetch_object($passQuery)){
-				session_start();
-				$_SESSION["username"] = $user;
-				$_SESSION["active"] = true;
-				$consultaRodeo = @mysql_query('SELECT usu_rodeo FROM usuarios WHERE usu_codigo = "'.mysql_real_escape_string ($user).'"');
-				$resultado = @mysql_fetch_array($consultaRodeo);
-				$_SESSION["rodeo"] = $resultado["usu_rodeo"];
-				header('Location: registers.php');
+				$consultaActive = @mysql_query('SELECT usu_active FROM usuarios WHERE usu_codigo = "'.mysql_real_escape_string ($user).'"');
+				$resultadoActive = @mysql_fetch_array($consultaActive);
+				$_SESSION["activated"] = $resultadoActive["usu_active"];
+				if ($_SESSION["activated"]){
+					session_start();
+					$_SESSION["username"] = $user;
+					$_SESSION["active"] = true;
+					$consultaRodeo = @mysql_query('SELECT usu_rodeo FROM usuarios WHERE usu_codigo = "'.mysql_real_escape_string ($user).'"');
+					$resultado = @mysql_fetch_array($consultaRodeo);
+					$_SESSION["rodeo"] = $resultado["usu_rodeo"];
+					header('Location: registers.php');
+				} else header('Location: index.php?error=noActive#SignIn');
 
 		} else header('Location: index.php?error=si#SignIn');
 	

@@ -2,6 +2,8 @@
 include_once 'fetch_texts.php';
 $text = new fetch_texts();
 session_start();
+include_once 'down_link_check.php';
+include_once 'lang/common.php';
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
@@ -39,23 +41,36 @@ session_start();
 	<link rel="shortcut icon" href="../img/favicon.png" >
 
       <style type="text/css">
+        a {
+          color: #439145;
+        }
+        #download_instructions {
+          color: #439145;
+        }
         #hero {
-          height: 650px;
-          max-height: 650px;
+          height: 600px;
+          max-height: 600px;
         }
         #flex-caption {
           width: 200px;
+        }
+        #change_pass {
+          margin-top: 5px;
+        }
+        #i_forgot {
+          margin-top: 5px;
         }
     </style>
 
 </head>
 
 <body class="homepage">
+  <?php if($_GET['reg']=='ok'){ echo "<script>alert('Thank you! You will receive an e-mail once the account has been activated within 48 hours.');</script>";} ?>
 
    <div id="preloader"> 
 	   <div id="status">
          <img src="../img/loader.gif" height="60" width="60" alt="">
-         <div class="loader">Loading...</div>
+         <div class="loader" id="loader"><?php echo $lang['loader']; ?></div>
       </div>
    </div>
    
@@ -63,8 +78,9 @@ session_start();
    <!-- Header
    =================================================== -->
    <header id="main-header">
-
+<i src="../img/en.png" height="30" width="30"></i>
    	<div class="row header-inner">
+      <i src="../img/en.png" height="30px" width="30px"></i>
 
 	      <div class="logo">
 	         <a class="smoothscroll" href="#hero">Calvin App.</a>
@@ -73,25 +89,25 @@ session_start();
 	      <nav id="nav-wrap">         
 	         
 	         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">
-	         	<span class='menu-text'>Show Menu</span>
+	         	<span class='menu-text' id='showMenu'>Show Menu</span>
 	         	<span class="menu-icon"></span>
 	         </a>
          	<a class="mobile-btn" href="#" title="Hide navigation">
-         		<span class='menu-text'>Hide Menu</span>
+         		<span class='menu-text' id='hideMenu'>Hide Menu</span>
          		<span class="menu-icon"></span>
          	</a>         
 
 	         <ul id="nav" class="nav">
-	            <li class="current"><a class="smoothscroll" href="#hero">Home</a></li>
+	            <li class="current"><a class="smoothscroll" href="#hero" id='home'><?php echo $lang['home']; ?></a></li>
               <li><?php if($_SESSION['active']){
-                echo "<a class='smoothscroll' href='#SignIn'>My Profile</a>";
-              } else echo "<a class='smoothscroll' href='#SignIn' id='loginLogout'>Sign In</a>"; ?></li>
-		          <li><a class="smoothscroll" href="#portfolio">About the app</a></li>
-	            <li><a class="smoothscroll" href="#services">How to use it</a></li>
-	            <li><a class="smoothscroll" href="#about">Download</a></li>
+                echo "<a class='smoothscroll' href='#SignIn' id='myProf'>".$lang['myProf']."</a>";
+              } else echo "<a class='smoothscroll' href='#SignIn' id='loginLogout'>".$lang['loginLogout']."</a>"; ?></li>
+		          <li><a class="smoothscroll" href="#portfolio" id='aboutApp'><?php echo $lang['aboutApp']; ?></a></li>
+	            <li><a class="smoothscroll" href="#services" id='howToUseIt'><?php echo $lang['howToUseIt']; ?></a></li>
+	            <li><a class="smoothscroll" href="#about" id='download'><?php echo $lang['download']; ?></a></li>
               <?php 
                 if(!$_SESSION['active']){
-                  echo "<li><a class='smoothscroll' href='#contact'>Create an account</a></li>";
+                  echo "<li><a class='smoothscroll' href='#contact' id='createAccount'>".$lang['createAccount']."</a></li>";
                 }
                ?>    
 	         </ul> 
@@ -127,8 +143,7 @@ session_start();
                   $text->fetchText("slide1");
                   echo "</h1>";
                 }
-                 ?>
-								<p><a class="button stroke smoothscroll" href="#about">More About Us</a></p>																   
+                 ?>														   
 							</div>						
 					   </li>
 
@@ -145,8 +160,7 @@ session_start();
                   $text->fetchText("slide2");
                   echo "</h1>";
                 }
-                 ?>
-								<p><a class="button stroke smoothscroll" href="#portfolio">See Our Works</a></p>									   
+                 ?>									   
 							</div>					
 					   </li>
 
@@ -163,20 +177,19 @@ session_start();
                   $text->fetchText("slide3");
                   echo "</h1>";
                 }
-                 ?>
-								<p><a class="button stroke smoothscroll" href="#contact">Get In Touch</a></p>										   
+                 ?>										   
 							</div>
 					   </li>					              
 
 				   </ul>
 
-			   </div> <!-- .flexslider -->				   
+			   </div> <!--flexslider -->				   
 
-	      </div> <!-- .flex-container -->      
+	      </div> <!--flex-container -->      
 
-		</div> <!-- .hero-content -->	   
+		</div> <!--hero-content -->	   
 
-   </section> <!-- #hero -->
+   </section> <!--hero -->
 
 
     <!-- SignIn
@@ -189,7 +202,7 @@ session_start();
 
            <?php
            if(!$_SESSION['active']){
-            echo "<h1 classid='contactTitle'>Sign In</h1>";
+            echo "<h1 classid='contactTitle' id='signIn'>".$lang['signIn']."</h1>";
             echo "<hr />";
             echo "     <div class='row form-section'>
         
@@ -203,64 +216,69 @@ session_start();
           <fieldset>
 
           <div class='six columns mob-whole'>
-            <input type='text' id='inputUsu' class='form-control' placeholder='Nombre de usuario' required name='user'>";
+            <input type='text' id='inputUsu' class='form-control' placeholder='".$lang['inputUsu']."' required name='user'>";
 
           if($_GET['error']=='si'){
-              echo "<span autofocus>Nombre de usuario o contraseña incorrectos</span>";
+              echo "<span autofocus id='userPassWrong'>".$lang['userPassWrong']."</span>";
+          } elseif ($_GET['error']=='noActive') {
+            //alert1 for lang
+            echo "<script>alert('".$lang['alert1']."');</script>";
           }
           echo "</div>
           <div class='six columns mob-whole'>
-            <input type='password' id='inputPassword' class='form-control' placeholder='password' required name='pass'>
+            <input type='password' id='inputPassword' class='form-control' placeholder='".$lang['inputPassword']."' required name='pass'>
           </div>
-          <div class='six columns mob-whole'>
-          <a href='' id='i_forgot'>I forgot my password</a>
-          </div>
-          <button class='btn btn-lg btn-primary btn-block' type='submit'>Sign In</button>
+          
+          <button class='btn btn-lg btn-primary btn-block' type='submit' id='SignIn_btn'>".$lang['SignIn_btn']."</button>
+          <button class='btn btn-lg btn-primary btn-block' id='i_forgot' type='button'>".$lang['i_forgot']."</button>
           <br />
 
         </fieldset>
         </form>
       </div>";
            } else {
-            echo "<h1 classid='contactTitle'>Welcome ".$_SESSION['username'] ."!</h1>";
+            echo "<h1 classid='contactTitle' id='welcome'>".$lang['welcome'].$_SESSION['username'] ."!</h1>";
             echo "<hr />";
-            echo "<p>Your rodeo is: ".$_SESSION['rodeo']."</p>";
-            echo "<a href='registers.php'><button>Manage Account</button><a>";
-            echo "<button class='btn btn-lg btn-primary btn-block' type='submit' id='change_pass'>Change password</button>";
-            echo "<a href='logout.php'><button>Logout</button><a>";
+            echo "<p id='rodeo_txt'>".$lang['rodeo_txt'].$_SESSION['rodeo']."</p>";
+            echo "<a href='registers.php'><button id='manage_btn'>".$lang['manage_btn']."</button><a>";
+            echo "<button class='btn btn-lg btn-primary btn-block' type='submit' id='change_pass'>".$lang['change_pass']."</button>";
+            echo "<a href='logout.php'><button id='chg_pass'>".$lang['chg_pass']."</button><a>";
             }
             ?>
 
         </div>
       </div>
 <?php 
+
+//alert_pass for lang.
 if(isset($_GET['chg']) && $_GET['chg']=='ok'){
   echo "<script type='text/javascript'>
-  alert('Password successfully changed!');
+  alert('".$lang['alert_pass']."');
   </script>";
-} elseif (isset($_GET['chg']) && $_GET['chg']=='no#SignIn') {
-  echo "<script type='text/javascript'>
-  alert('The passwords don't match');
-  </script>";
+  //alert_wrong
+} elseif (isset($_GET['chg']) && $_GET['chg']=='no') {
+  echo '<script type="text/javascript">
+  alert("'.$lang['alert_wrong'].'");
+  </script>';
 }
   
 
- ?>
+?>
  
     </div> 
   <div id="dialog-form" title="Change Password">
-  <p class="validateTips">All form fields are required.</p>
+  <p class="validateTips" id='validateTips'><?php echo $lang['validateTips']; ?></p>
  
   <form id="change_pass_frm" method='post' action='change_pass.php' enctype='application/x-www-form-urlencoded'>
     <fieldset>
-      <label for="name">Old Password</label>
-      <input type="password" name="old_pass" id="old_pass" placeholder="xxxxxxx" class="text ui-widget-content ui-corner-all">
+      <label for="name" id='old_lbl'><?php echo $lang['old_lbl']; ?></label>
+      <input type="password" name="old_pass" id="old_pass" placeholder="<?php echo $lang['old_pass']; ?>" class="text ui-widget-content ui-corner-all">
       <span id="span_old_pass"></span>
-      <label for="email">New Password</label>
-      <input type="password" name="new_pass1" id="new_pass1" placeholder="xxxxxxx" class="text ui-widget-content ui-corner-all">
+      <label for="email" id='new_lbl'><?php echo $lang['new_lbl']; ?></label>
+      <input type="password" name="new_pass1" id="new_pass1" placeholder="<?php echo $lang['new_pass1']; ?>" class="text ui-widget-content ui-corner-all">
       <span id="span_new_pass1"></span>
-      <label for="password">Repeat New Password</label>
-      <input type="password" name="new_pass2" id="new_pass2" placeholder="xxxxxxx" class="text ui-widget-content ui-corner-all">
+      <label for="password" id='repeat_lbl'>Repeat New Password</label>
+      <input type="password" name="new_pass2" id="new_pass2" placeholder="<?php echo $lang['new_pass2']; ?>" class="text ui-widget-content ui-corner-all">
       <span id="span_new_pass2"></span>
       <?php echo "<input type='text' id='user' name='user' value='".$_SESSION['username']."' style='visibility:hidden; display:none;'>"; ?>
       
@@ -272,15 +290,15 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
 </div>
 
 <div id="dialog-form" title="Forgot Password">
-  <p class="validateTips">Please enter your username and the email you registered with. A new password will be sent to your email.</p>
+  <p class="validateTips" id='validate_1'><?php echo $lang['validate_1']; ?></p>
  
   <form id="i_forgot_frm" method='post' action='forgot_pass.php' enctype='application/x-www-form-urlencoded'>
     <fieldset>
-      <label>Username</label>
-      <input type='text' name='user' placeholder='user' id='name' class='text ui-widget-content ui-corner-all'>
+      <label id='user_lbl'><?php echo $lang['user_lbl']; ?></label>
+      <input type='text' name='user_fg' placeholder='<?php echo $lang['user_fg']; ?>' id='user_fg' class='text ui-widget-content ui-corner-all'>
       <span id="name_spn"></span>
-      <label for="name">Email Adress</label>
-      <input type="text" name="mail" id="mail" placeholder="example@example.com" class="text ui-widget-content ui-corner-all">
+      <label for="name" id='email_lbl'><?php echo $lang['email_lbl']; ?></label>
+      <input type="text" name="mail_fg" id="mail_fg" placeholder="example@example.com" class="text ui-widget-content ui-corner-all">
       <span id="mail_spn"></span>
  
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -289,7 +307,20 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
   </form>
 </div>
 
-   </section> <!-- /blog -->
+<?php 
+if(isset($_GET['success']) && $_GET['success']=='true'){
+  echo "<script type='text/javascript'>
+  alert('".$lang['alert2']."');
+  </script>";
+
+} elseif (isset($_GET['success']) && $_GET['success']=='false') {
+  echo '<script type="text/javascript">
+  alert("'.$lang['alert3'].'");
+  </script>';
+}
+ ?>
+
+</section> <!-- /SignIn -->
 
 
    <!-- About the app
@@ -381,26 +412,26 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
                   <i class='icon-list'></i>                 
                 </div>
                     
-                <h3><a href='../pdf instructions file/instructions.pdf'>Download instructions (PDF File)</a></h3>
-            </div> <!--mob-whole-->
+                <h3><a href='http://ohio.inglobe.com.ar/site/pdf%20instructions%20file/instructions.pdf' id='download_instructions' target='_blank'>Download instructions (PDF File)</a></h3>
+            </div>
 
             <div class='twelve columns mob-whole'> 
                 <div class='icon-part'>
                   <i class='icon-cloud-upload'></i>                 
                 </div>
                     
-                <h3>Upload the PDF File (ADMIN ONLY)</h3>
+                <h3 id='upload_pdf'>".$lang['upload_pdf']."</h3>
                 <form action='upload.php' method='post' id='form' enctype='multipart/form-data'>
                   <fieldset>
                     <input type='file' id='pdffile' name='pdffile'>
-                    <button id='uploadPdf_btn' type='submit' style='visibility:visible;'>Upload</button>
+                    <button id='uploadPdf_btn' type='submit' style='visibility:visible;'>".$lang['uploadPdf_btn']."</button>
                   </fieldset>
                   
                   <span id='upload_status_txt' style='visibility:hiden; display:none;'></span>";
                   if(isset($_GET['upstatus']) && $_GET['upstatus']=='err'){
-                    echo "<span id='upload_status_txt'>Only PDF files allowed! Please check the file extension.</span>";
+                    echo "<span id='upload_status_txt1'>".$lang['upload_status_txt1']."</span>";
                   } elseif (isset($_GET['upstatus']) && $_GET['upstatus']=='ok') {
-                    echo "<span id='upload_status_txt'>File successfully uploaded!</span>";
+                    echo "<span id='upload_status_txt2'>".$lang['upload_status_txt2']."</span>";
                   }                  
 
                 echo "</form>
@@ -422,7 +453,7 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
                   <i class='icon-arrow-down'></i>                 
                 </div>
                     
-                 <h3><a href=''>Download instructions (PDF File)</a></h3>
+                 <h3><a href='../pdf instructions file/instructions.pdf' id='download_instructions1'>".$lang['download_instructions1']."</a></h3>
 
 
           </div> <!-- /service-list -->
@@ -475,14 +506,37 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
 
         <div class="row">
           <div class="six columns mob-whole"> 
-            <p>Click <a href="https://build.phonegap.com/apps/1146542/share">here</a> or the icon to download the app!</p>
-            <a href="https://build.phonegap.com/apps/1146542/share"><img src="../img/download.png" id="downloadButton" width="150" height="150"></a>
+            <!--acordarse, acá hay 2 textos con 1 solo id!!-->
+            <p id='link1'>Click <a target='_blank' href=<?php echo '"'.read().'"'; ?> id='link2'><?php echo $lang['link2']; ?></a> <?php echo $lang['link1']; ?></p>
+            <a href=<?php echo '"'.read().'"'; ?> target="_blank"><img src="../img/download.png" id="downloadButton" width="150" height="150"></a>
+            <?php  
+            if($_SESSION['username'] == 'admin'){
+            echo "<form id='link_frm' method='post' action='link_modify.php' enctype='application/x-www-form-urlencoded'>
+              <fieldset>
+              <label id='ch_link'>".$lang['ch_link']."</label>
+              <input type='text' placeholder='".$lang['ch_plc']."' size='70px' name='link_txt' id='ch_plc'>
+              <input type='submit' value='".$lang['up_link']."' id='up_link'>
+              </fieldset>
+            </form>";
+            }
+            ?>
           </div>
           <div class="six columns mob-whole"> 
-            <p>Or scan the QR Code below: </p> 
+            <p id='qr_txt'><?php echo $lang['qr_txt']; ?></p> 
             <img src="../img/qrcode.png" id="qrcode" width="150" height="150">
+            <?php  
+            if($_SESSION['username'] == 'admin'){
+            echo "<form id='qr_frm' action='upload_qr.php' method='post' enctype='multipart/form-data'>
+            <p id='up_qr'>".$lang['up_qr']."</p>
+            <input type='file' name='qrcode' id='qrcode' value='Browse...'>
+            <input type='submit' value='".$lang['up_qr_btn']."' id='up_qr_btn'>
+          </form>";
+        }
+        ?>
+
           </div>
         </div>
+            
       </div>
 
       <br /><br /><br /><br /><br /><br />
@@ -503,7 +557,7 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
 
       <div class='twelve columns'>
 
-           <h1>Register a new user</h1>
+           <h1 id='register_1'>".$lang['register_1']."</h1>
 
            <hr />
 
@@ -522,11 +576,12 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
                   <div class='row'>
 
                     <div class='six columns mob-whole'>
-                      <input type='text' id=inputUsu' class='form-control' placeholder='Nombre de usuario*'' required name='user' onblur='verificar( #id);'>
+                      <input type='text' id='inputUsuReg' class='form-control' placeholder='".$lang['inputUsuReg']."' required name='user'>
                       <span id='usn_null'></span>";
                       
-                        if(isset($_GET["error"]) && $_GET["error"] == "si") {
-                          echo "<span>El nombre de usuario ya existe</span>";
+                        if(isset($_GET['error']) && $_GET["error"] == "si") {
+                          echo "<script type='text/javascript'>alert('".$lang['us_1']."');</script>";
+                          //echo "<span id='us_1'>This username already exists.</span>";
                         }
                        
                    echo "</div>
@@ -541,12 +596,12 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
                   <div class='row'>
 
                     <div class='six columns mob-whole'> 
-                      <input type='password' id='inputPassword' class='form-control' placeholder='Contraseña' required name='pass'>
+                      <input type='password' id='inputPasswordReg' class='form-control' placeholder='".$lang['inputPasswordReg']."' required name='pass'>
                       <span id='pass_null'></span>              
                     </div>
 
                     <div class='six columns mob-whole'>  
-                      <input type='password' id='inputPassword2' class='form-control' placeholder='Verif. Contraseña' required name='pass2' onblur='verifPass();'>
+                      <input type='password' id='inputPassword2' class='form-control' placeholder='".$lang['inputPassword2']."' required name='pass2' onblur='verifPass();'>
                       <span id='contraMal'></span>                  
                     </div>
 
@@ -555,12 +610,12 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
                   <div class='row'>
 
                        <div class='six columns mob-whole'> 
-                       <input type='text' id='inputNombre' class='form-control' placeholder='Nombre' required name='user_name'>
+                       <input type='text' id='inputNombre' class='form-control' placeholder='".$lang['inputNombre']."' required name='user_name'>
                        <span id='name_null'></span>
                        </div>
 
                        <div class='six columns mob-whole'> 
-                        <input type='text' id='inputApellido' class='form-control' placeholder='Apellido' required name='user_surname'>
+                        <input type='text' id='inputApellido' class='form-control' placeholder='".$lang['inputApellido']."' required name='user_surname'>
                         <span id='sur_null'></span>
                        </div>
 
@@ -569,15 +624,12 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
             </fieldset>
 
             <div id='dialog-6'>
-              <p>You must accept these terms before continuing.</p>
-              <p>This Agreement and the Request constitute the entire agreement of the 
-              parties with respect to the subject matter of the Request. This Agreement shall be 
-              governed by and construed in accordance with the laws of the State, without giving 
-              effect to principles of conflicts of law.</p>
+              <p id='terms_ttl'>".$lang['terms_ttl']."</p>
+              <p id='terms_txt'>".$lang['terms_txt']."</p>
           </div>
               
           </form>
-          <button id='opener-5' class='submit full-width'>Register New User</button>
+          <button id='opener-5' class='submit full-width'>".$lang['opener-5']."</button>
 
 
          </div>        
@@ -674,7 +726,8 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
 
          </div>
 
-         <p class="copyright" style="color: #B2B2B2">&copy; Copyright 2014 Calvin App</p>        
+         <!-- <p class="copyright" style="color: #B2B2B2">&copy; Copyright 2014 Calvin App</p>        -->
+         <?php include_once 'footer.php'; ?>
 
          <div id="go-top">
             <a class="smoothscroll" title="Back to Top" href="#hero"><span>Top</span><i class="fa fa-long-arrow-up"></i></a>
@@ -697,7 +750,7 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
    <script src="../plugins/puremedia/main.js"></script>
     <!--JEditable
    ==================================================== -->
-  <script src="http://www.appelsiini.net/projects/jeditable/jquery.jeditable.js"></script>
+  <script src="../js/jeditable.js"></script>
   <script type="text/javascript" src="../js/jeditable_config.js"></script>
   <!--JQueryUI
   ===================================================== -->

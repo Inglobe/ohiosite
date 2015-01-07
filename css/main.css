@@ -50,7 +50,7 @@ body {
 
 /* Links
 ---------------------------------------------------------------------- */
-a, a:visited {
+a, a:visited, {
 	color: #439145;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
@@ -381,7 +381,8 @@ button,
 input[type="submit"], 
 input[type="reset"], 
 input[type="button"],
-#change_pass {
+#change_pass,
+#i_forgot {
 	display: inline-block;
 	font: 15px/30px "raleway-bold", sans-serif;
 	padding: 9px 16px;

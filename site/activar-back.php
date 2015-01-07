@@ -11,12 +11,13 @@ if(isset($_POST['active']) && isset($_POST['usuario'])){
 
 	$headers = 'From: info@test.ecalvin.com' . "\r\n" .
     'Reply-To: info@test.ecalvin.com' . "\r\n" .
+    'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
 
     $to = $_POST["email"];
     if($_POST["active"] == "1") {
     	$subject = "Your account ".$usuario." has been activated.";
-    	$body = "<h3>Dear ".$usuario.", <br />your account has been activated.<br />Please, visit our web site to download the App.<br /><br />Thank you, <br />Calving App Team.</h3>"; 
+    	$body = "<h3>Dear ".$usuario.",</h3><br /><p>Your account has been activated.<br />Please, visit our web site to download the App.</p><br /><br /><h5>Thank you, <br />Calving App Team.</h5>"; 
     } /*else {
     	$subject = "Your account ".$usuario." has been desactivated.";
     	$body = "<h3>Your account ".$usuario." has been desactivated. If you still want to use it, please contact the administrator.</h3>";

@@ -72,6 +72,7 @@ $_SESSION["lang"] = "en";
         .footer {
             background-color: #000;
             vertical-align: center;
+            position: relative;
         }
 
         #tabla {
@@ -156,10 +157,8 @@ $_SESSION["lang"] = "en";
     </section>
     <!-- Footer
    ================================================== -->
-   <footer class="footer">
-        <div class="row">
-            <p class="copyright" style="color: #B2B2B2">&copy;Copyright 2014 Calvin App</p>      
-        </div>
-   </footer> <!-- /footer -->
+   <?php 
+      include_once 'footer.php';
+    ?>
 </body>
 </html>
