@@ -30,6 +30,9 @@ function passCheck($user, $pass){
 					$consultaRodeo = @mysql_query('SELECT usu_rodeo FROM usuarios WHERE usu_codigo = "'.mysql_real_escape_string ($user).'"');
 					$resultado = @mysql_fetch_array($consultaRodeo);
 					$_SESSION["rodeo"] = $resultado["usu_rodeo"];
+					if (isset($_COOKIE['lang'])) {
+						$_SESSION['lang'] = $_COOKIE['lang'];
+					} else $_SESSION['lang'] = "en";
 					header('Location: registers.php');
 				} else header('Location: index.php?error=noActive#SignIn');
 

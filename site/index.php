@@ -4,6 +4,9 @@ $text = new fetch_texts();
 session_start();
 include_once 'down_link_check.php';
 include_once 'lang/common.php';
+if (!isset($_SESSION['lang'])) {
+  $_SESSION['lang']="en";
+}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
@@ -62,6 +65,7 @@ include_once 'lang/common.php';
         }
     </style>
 
+
 </head>
 
 <body class="homepage">
@@ -109,7 +113,14 @@ include_once 'lang/common.php';
                 if(!$_SESSION['active']){
                   echo "<li><a class='smoothscroll' href='#contact' id='createAccount'>".$lang['createAccount']."</a></li>";
                 }
-               ?>    
+                if($_SESSION['lang']=='es'){
+                  echo '<li><a href="index.php?lang=en">English</a></li>';
+                } elseif ($_SESSION['lang']=='en') {
+                  echo '<li><a href="index.php?lang=es">Español</a></li>';
+                }
+               ?>
+              
+
 	         </ul> 
 	      </nav> <!-- /nav-wrap -->	      
 
@@ -136,11 +147,11 @@ include_once 'lang/common.php';
 								<?php
                 if ($_SESSION['username']=='admin'){
                   echo "<h1 class='edit_area' id='slide1'>";
-                  $text->fetchText("slide1");
+                  $text->fetchText("slide1", $_SESSION['lang']);
                   echo "</h1>"; 
                 } else {
                   echo "<h1 id='slide1'>";
-                  $text->fetchText("slide1");
+                  $text->fetchText("slide1", $_SESSION['lang']);
                   echo "</h1>";
                 }
                  ?>														   
@@ -153,11 +164,11 @@ include_once 'lang/common.php';
 								<?php
                 if ($_SESSION['username']=='admin'){
                   echo "<h1 class='edit_area' id='slide2'>";
-                  $text->fetchText("slide2");
+                  $text->fetchText("slide2", $_SESSION['lang']);
                   echo "</h1>"; 
                 } else {
                   echo "<h1 id='slide2'>";
-                  $text->fetchText("slide2");
+                  $text->fetchText("slide2", $_SESSION['lang']);
                   echo "</h1>";
                 }
                  ?>									   
@@ -170,11 +181,11 @@ include_once 'lang/common.php';
 								<?php
                 if ($_SESSION['username']=='admin'){
                   echo "<h1 class='edit_area' id='slide3'>" ;
-                  $text->fetchText("slide3");
+                  $text->fetchText("slide3", $_SESSION['lang']);
                   echo "</h1>"; 
                 } else {
                   echo "<h1 id='slide3'>";
-                  $text->fetchText("slide3");
+                  $text->fetchText("slide3", $_SESSION['lang']);
                   echo "</h1>";
                 }
                  ?>										   
@@ -289,7 +300,7 @@ if(isset($_GET['chg']) && $_GET['chg']=='ok'){
   </form>
 </div>
 
-<div id="dialog-form" title="Forgot Password">
+<div id="dialog-form" title=<?php echo '"'.$lang['dialog-form'].'"'; ?>>
   <p class="validateTips" id='validate_1'><?php echo $lang['validate_1']; ?></p>
  
   <form id="i_forgot_frm" method='post' action='forgot_pass.php' enctype='application/x-www-form-urlencoded'>
@@ -335,19 +346,19 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 
            if($_SESSION['username']=='admin'){
             echo "<h1 class='edit_area' id='aboutTitle'>";
-            $text->fetchText("aboutTitle");
+            $text->fetchText("aboutTitle", $_SESSION['lang']);
             echo "</h1>";
             echo "<hr />";
             echo "<p class='edit_area' id='aboutText'>";
-            $text->fetchText("aboutText");
+            $text->fetchText("aboutText", $_SESSION['lang']);
             echo "</p>";
            } else {
             echo "<h1 id='aboutTitle'>";
-            $text->fetchText("aboutTitle");
+            $text->fetchText("aboutTitle", $_SESSION['lang']);
             echo "</h1>";
             echo "<hr />";
             echo "<p id='aboutText'>";
-            $text->fetchText("aboutText");
+            $text->fetchText("aboutText", $_SESSION['lang']);
             echo "</p>";
            }
 
@@ -373,11 +384,11 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 	         <?php 
            if($_SESSION['username']=='admin'){
             echo "<h1 class='edit_area' id='howToUseTitle'>";
-            $text->fetchText("howToUseTitle");
+            $text->fetchText("howToUseTitle", $_SESSION['lang']);
             echo "</h1>";
            } else {
             echo "<h1 id='howToUseTitle'>";
-            $text->fetchText("howToUseTitle");
+            $text->fetchText("howToUseTitle", $_SESSION['lang']);
             echo "</h1>";
            }
             ?>
@@ -387,11 +398,11 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 	         <?php 
            if ($_SESSION['username']=='admin'){
             echo "<p class='edit_area' id='howToUseText'>";
-            $text->fetchText("howToUseText");
+            $text->fetchText("howToUseText", $_SESSION['lang']);
             echo "</p>";
            } else {
             echo "<p id='howToUseText'>";
-            $text->fetchText("howToUseText");
+            $text->fetchText("howToUseText", $_SESSION['lang']);
             echo "</p>";
            }
             ?>
@@ -479,11 +490,11 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 	         <?php 
            if($_SESSION['username']=='admin'){
             echo "<h1 class='edit_area' id='downloadAppTitle'>";
-            $text->fetchText("downloadAppTitle");
+            $text->fetchText("downloadAppTitle", $_SESSION['lang']);
             echo "</h1>";
            } else {
             echo "<h1 id='downloadAppTitle'>";
-            $text->fetchText("downloadAppTitle");
+            $text->fetchText("downloadAppTitle", $_SESSION['lang']);
             echo "</h1>";
            }
             ?>
@@ -493,11 +504,11 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 	         <?php 
            if($_SESSION['username']== 'admin'){
             echo "<p class='edit_area' id='downloadAppText'>";
-            $text->fetchText("downloadAppText");
+            $text->fetchText("downloadAppText", $_SESSION['lang']);
            echo "</p>";
            } else {
             echo "<p id='downloadAppText'>";
-            $text->fetchText("downloadAppText");
+            $text->fetchText("downloadAppText", $_SESSION['lang']);
             echo "</p>";
           }
          ?>
@@ -652,11 +663,11 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 				<?php 
         if($_SESSION['username']== 'admin'){
           echo "<h3 class='edit_area' id='footer1'>";
-          $text->fetchText("footer1");
+          $text->fetchText("footer1", $_SESSION['lang']);
           echo "</h3>";
         } else {
            echo "<h3 id='footer1'>";
-           $text->fetchText("footer1");
+           $text->fetchText("footer1", $_SESSION['lang']);
            echo "</h3>";
          }
        ?>
@@ -664,11 +675,11 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
             <?php 
             if($_SESSION['username']=='admin'){
               echo "<p class='edit_area' id='footer2'>";
-              $text->fetchText("footer2");
+              $text->fetchText("footer2", $_SESSION['lang']);
               echo "</p>";
             } else {
               echo "<p id='footer2'>";
-              $text->fetchText("footer2");
+              $text->fetchText("footer2", $_SESSION['lang']);
               echo "</p>";
             }
 
@@ -685,11 +696,11 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                   <?php
                   if($_SESSION['username']=='admin'){
                     echo "<p class ='edit_area' id='footer3'>";
-                    $text->fetchText("footer3");
+                    $text->fetchText("footer3", $_SESSION['lang']);
                     echo "</p>";
                   } else{
                     echo "<p id='footer3'>";
-                    $text->fetchText("footer3");
+                    $text->fetchText("footer3", $_SESSION['lang']);
                     echo "</p>";
                   }
                   ?>
@@ -698,23 +709,23 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                     <?php 
                     if($_SESSION['username']=='admin'){
                       echo "<li class='edit_area' id='phone1'>";
-                      $text->fetchText("phone1");
+                      $text->fetchText("phone1", $_SESSION['lang']);
                       echo "</li>";
                       echo "<li class='edit_area' id='phone2'>";
-                      $text->fetchText("phone2");
+                      $text->fetchText("phone2", $_SESSION['lang']);
                       echo "</li>";
                       echo "<li class='edit_area' id='mail'>";
-                      $text->fetchText("mail");
+                      $text->fetchText("mail", $_SESSION['lang']);
                       echo "</li>";
                     } else {
                       echo "<li id='phone1'>";
-                      $text->fetchText("phone1");
+                      $text->fetchText("phone1", $_SESSION['lang']);
                       echo "</li>";
                       echo "<li id='phone2'>";
-                      $text->fetchText("phone2");
+                      $text->fetchText("phone2", $_SESSION['lang']);
                       echo "</li>";
                       echo "<li id='mail'>";
-                      $text->fetchText("mail");
+                      $text->fetchText("mail", $_SESSION['lang']);
                       echo "</li>";
                     }
                      ?>
@@ -758,20 +769,24 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 
   <!-- JQueryUI DialogBox Config
   ===================================================== -->
-  <script type="text/javascript" src="../js/jqueryUI_dialogbox_config.js"></script>
+  <?php echo "<script type='text/javascript' src='../js/jqueryUI_dialogbox_config_".$_SESSION['lang'].".js'></script>" ?>
+  
 
   <!-- Verificar que las pass coincidan. 
   ===================================================== -->
-  <script type="text/javascript" src="../js/verifPass.js"></script>
+  <?php echo "<script type='text/javascript' src='../js/verifPass_".$_SESSION['lang'].".js'></script>" ?>
+  
   <!-- Upload script
   ===================================================== -->
   <script type="text/javascript" src='../js/upload_wait.js'></script>
   <!--change pass script
   ===================================================== -->
-  <script type="text/javascript" src="../js/change_pass.js"></script>
+  <?php echo "<script type='text/javascript' src='../js/change_pass_".$_SESSION['lang'].".js'></script>" ?>
+  
  <!--forgot pass script
   ===================================================== -->
-  <script type="text/javascript" src="../js/i_forgot.js"></script>
+  <?php echo "<script type='text/javascript' src='../js/i_forgot_".$_SESSION['lang'].".js'></script>" ?>
+  
 
 </body>
 

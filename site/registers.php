@@ -1,6 +1,9 @@
 <?php 
 include_once 'session_checker.php';
-$_SESSION["lang"] = "en";	
+include_once 'lang/common.php';
+if (!isset($_SESSION['lang'])) {
+  $_SESSION['lang']="en";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +13,7 @@ $_SESSION["lang"] = "en";
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
     <meta name="author" content="">
-	<title>Visualizaci&oacute;n de registros</title>
+	<title><?php echo $lang["title_reg"]; ?></title>
     <!--<link href="table.css" rel="stylesheet" type="text/css">-->
     <script type="text/javascript" src="../js/jquery.js"></script>
     <script type="text/javascript" src="../plugins/jqwidgets/jqwidgets/jqxcore.js"></script>
@@ -34,9 +37,9 @@ $_SESSION["lang"] = "en";
     <script type="text/javascript" src="../plugins/jqwidgets/jqwidgets/jqxgrid.export.js"></script> 
     <script type="text/javascript">
     	var language = "<?php echo $_SESSION['lang'] ?>";
-    	var header_es = ["Rodeo&nbsp&nbsp&nbsp&nbsp", "Nro Vaca", "Corral", "Fecha comienzo parto", "Lactancia", "Raza Vaca", "CC Vaca", "Tecnico comienzo parto", "Comienzo parto", "Fin parto&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp", "Higiene perineo", "Observaciones", "Fecha de parto", "Nro Becerro", "Sexo", "Estado en Nacimiento", "Becerro Muerto", "Fecha Becerro Muerto", "Hora Becerro Muerto", "Dificultad parto", "Becerro presentacion" ,"Raza Becerro", "Tecnico en nacimiento de becerro", "Fecha Calostro", "Hora Calostro", "Calidad Calostro", "Cantidad Calostro", "Becerro Vigor", "Peso al nacer", "Tecnico calostro"];
-    	var header_en = ["Farm&nbsp&nbsp&nbsp&nbsp&nbsp", "Cow ID", "Pen", "Start calving date", "Lactation", "Cow Breed", "Cow BCS", "Start Calving Personnel", "Start Calving&nbsp&nbsp", "End Calving", "Perineum Hygiene","Observations","Calving Date", "Calf ID", "Sex", "Calf Status at Birth", "Calf Dead", "Calf Dead Date", "Calf Dead Time", "Calving Difficulty", "Calf Presentation", "Calf Breed", "Calf Birth Personnel", "Colostrum Date", "Colostrum time", "Colostrum Quality", "Colostrum Quantity", "Calf Vigor", "Calf Birth Weight", "Colostrum Personnel"];
-    	var header_def = ["Rodeo", "NroVaca", "Corral","FechaComParto", "Lactancia", "RazaVaca", "CCVaca", "TecnicoComParto", "ComienzoParto", "FinParto", "HigienePerineo", "Observaciones","FechaParto", "NroBecerro", "Sexo", "EstadoNacimiento", "BecerroMuerto", "FechaBecerroMuerto", "HoraBecerroMuerto", "DificultadParto", "BecerroPresentacion", "RazaBecerro", "BecerroNacimientoTecnico", "FechaCalostro", "HoraCalostro", "CalidadCalostro", "CantidadCalostro", "BecerroVigor", "PesoAlNacer", "CalostroTecnico"];
+    	var header_es = ["Rodeo&nbsp&nbsp&nbsp&nbsp", "Nro Vaca", "Corral", "Fecha comienzo parto", "Lactancia", "Raza Vaca", "CC Vaca", "Tecnico comienzo parto", "Comienzo parto", "Fin parto&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp", "Higiene perineo", "Observaciones", "Fecha de parto", "Nro Becerro", "Sexo", "Estado en Nacimiento", "Becerro Muerto", "Fecha Becerro Muerto", "Hora Becerro Muerto", "Dificultad parto", "Becerro presentacion" ,"Raza Becerro", "Tecnico en nacimiento de becerro", "Fecha Calostro", "Hora Calostro", "Calidad Calostro", "Cantidad Calostro", "Becerro Vigor", "Peso al nacer", "Tecnico calostro", "Audit"];
+    	var header_en = ["Farm&nbsp&nbsp&nbsp&nbsp&nbsp", "Cow ID", "Pen", "Start calving date", "Lactation", "Cow Breed", "Cow BCS", "Start Calving Personnel", "Start Calving&nbsp&nbsp", "End Calving", "Perineum Hygiene","Observations","Calving Date", "Calf ID", "Sex", "Calf Status at Birth", "Calf Dead", "Calf Dead Date", "Calf Dead Time", "Calving Difficulty", "Calf Presentation", "Calf Breed", "Calf Birth Personnel", "Colostrum Date", "Colostrum time", "Colostrum Quality", "Colostrum Quantity", "Calf Vigor", "Calf Birth Weight", "Colostrum Personnel", "Audit"];
+    	var header_def = ["Rodeo", "NroVaca", "Corral","FechaComParto", "Lactancia", "RazaVaca", "CCVaca", "TecnicoComParto", "ComienzoParto", "FinParto", "HigienePerineo", "Observaciones","FechaParto", "NroBecerro", "Sexo", "EstadoNacimiento", "BecerroMuerto", "FechaBecerroMuerto", "HoraBecerroMuerto", "DificultadParto", "BecerroPresentacion", "RazaBecerro", "BecerroNacimientoTecnico", "FechaCalostro", "HoraCalostro", "CalidadCalostro", "CantidadCalostro", "BecerroVigor", "PesoAlNacer", "CalostroTecnico", "Audit"];
 
     	$(document).ready(function(){
     		cargarGrilla();
@@ -51,7 +54,7 @@ $_SESSION["lang"] = "en";
             	if(language == "en") {
             		$("#jqxgrid").jqxGrid('setcolumnproperty', 'Rodeo', 'text', 'Farm');
             		$("#jqxgrid").jqxGrid('setcolumnproperty', 'ComienzoParto', 'text', 'Start Calving');
-                	$("#jqxgrid").jqxGrid('exportdata', 'xls', 'reports');  
+                	$("#jqxgrid").jqxGrid('exportdata', 'xls', 'reports');
                 	$("#jqxgrid").jqxGrid('setcolumnproperty', 'Rodeo', 'text', 'Farm&nbsp&nbsp&nbsp&nbsp&nbsp');
                 	$("#jqxgrid").jqxGrid('setcolumnproperty', 'ComienzoParto', 'text', 'Start Calving&nbsp&nbsp');
                 	$("#jqxgrid").jqxGrid('autoresizecolumns', 'all');
@@ -119,7 +122,8 @@ $_SESSION["lang"] = "en";
     			  {name: header_def[26], type:'int'},
     			  {name: header_def[27], type:'int'},
     			  {name: header_def[28], type:'float'},
-    			  {name: header_def[29], type:'string'}],
+    			  {name: header_def[29], type:'string'},
+                  {name: header_def[30], type:'string'}],
     			url: "datos.php"
     		}
 
@@ -169,7 +173,8 @@ $_SESSION["lang"] = "en";
                 { text: header[26], datafield: header_def[26], filtertype: 'number', cellsformat: 'n'},
                 { text: header[27], datafield: header_def[27], filtertype: 'number', cellsformat: 'n'},
                 { text: header[28], datafield: header_def[28], filtertype: 'float', cellsformat: 'd'},
-                { text: header[29], datafield: header_def[29], filtertype: 'input'}]
+                { text: header[29], datafield: header_def[29], filtertype: 'input'},
+                { text: header[30], datafield: header_def[30], filtertype: 'input'}]
                 
            });
 	
@@ -337,6 +342,8 @@ $_SESSION["lang"] = "en";
     	}
     </script>
 
+    
+
    <!-- Mobile Specific Metas
    ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -344,7 +351,7 @@ $_SESSION["lang"] = "en";
     <!-- CSS
     ================================================== -->
    <link rel="stylesheet" href="../css/base.css">
-     <link rel="stylesheet" href="../css/mainmod.css">
+   <link rel="stylesheet" href="../css/mainmod.css">
    <link rel="stylesheet" href="../css/media-queries.css">  
    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">           
 
@@ -354,7 +361,7 @@ $_SESSION["lang"] = "en";
 
    <!-- Favicons
     =================================================== -->
-    <link rel="shortcut icon" href="favicon.png" >
+    <link rel="shortcut icon" href="../img/favicon.png" >
     <link rel="stylesheet" href="../plugins/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
     <link rel="stylesheet" href="../plugins/jqwidgets/jqwidgets/styles/jqx.highcontrast.css" type="text/css" />
     <style type="text/css">
@@ -410,18 +417,36 @@ $_SESSION["lang"] = "en";
             </a>         
 
              <ul id="nav" class="nav">
-                <li class="current"><a class="smoothscroll" href="">Registers</a></li>
-                <li><a class="smoothscroll" href="index.php">Go Back Home</a></li>
-                <li><a class="smoothscroll" href="logout.php"><?php echo "Logout (".$_SESSION['username'].")"; ?> </a></li>
-                <?php
-                if ($_SESSION['username']=='admin'){
-                  echo "<li><a class='smoothscroll' href='accounts.php'>Accounts</a></li>";
-                }
+                <?php 
+                    if($_SESSION['lang']=='es'){
+                        echo "<li class='current'><a href='' id='nav_registers'>".$lang['nav_registers']."</a></li>";
+                        echo "<li><a href='index.php?lang=es' id='nav_backhome'>".$lang['nav_backhome']."</a></li>";
+                        echo "<li><a id='log_nav' href='logout.php?lang=es'>".$lang['log_nav']." (".$_SESSION['username'].")</a></li>";
+                        if ($_SESSION['username']=='admin'){
+                            echo "<li><a href='accounts.php?lang=es' id='nav_accounts'>".$lang['nav_accounts']."</a></li>";
+                            echo "<li><a href='rounds.php?lang=es' id='nav_rounds'>".$lang['nav_rounds']."</a></li>";
+                        }
+                        if($_SESSION['lang']=='es'){
+                          echo '<li><a href="registers.php?lang=en">English</a></li>';
+                        } elseif ($_SESSION['lang']=='en') {
+                          echo '<li><a href="registers.php?lang=es">Español</a></li>';
+                        }
+                    } else if($_SESSION['lang']=='en'){
+                        echo "<li class='current'><a href='' id='nav_registers'>".$lang['nav_registers']."</a></li>";
+                        echo "<li><a href='index.php?lang=en' id='nav_backhome'>".$lang['nav_backhome']."</a></li>";
+                        echo "<li><a id='log_nav' href='logout.php?lang=en'>".$lang['log_nav']." (".$_SESSION['username'].")</a></li>";
+                        if ($_SESSION['username']=='admin'){
+                            echo "<li><a href='accounts.php?lang=en' id='nav_accounts'>".$lang['nav_accounts']."</a></li>";
+                            echo "<li><a href='rounds.php?lang=en' id='nav_rounds'>".$lang['nav_rounds']."</a></li>";
+                        }
+                        if($_SESSION['lang']=='es'){
+                          echo '<li><a href="registers.php?lang=en">English</a></li>';
+                        } elseif ($_SESSION['lang']=='en') {
+                          echo '<li><a href="registers.php?lang=es">Español</a></li>';
+                        }
+                    }
                  ?>
-              <!--<li><a class="smoothscroll" href="#table">Registers</a></li>
-                <li><a class="smoothscroll" href="#SignIn">Sign in</a></li>             
-                <li><a class="smoothscroll" href="#contact">Create an account</a></li>-->
-             </ul> 
+               </ul> 
 
           </nav> <!-- /nav-wrap -->       
 
@@ -445,5 +470,11 @@ $_SESSION["lang"] = "en";
    <footer class="footer">
         <?php include_once 'footer.php'; ?>
    </footer> <!-- /footer -->
+
+      <!-- Java Script
+   ================================================== -->
+    <script src="../plugins/puremedia/mainmob.js"></script>
+   
+
 </body>
 </html>

@@ -9,10 +9,10 @@ class fetch_texts {
  
     }
 
-    public function fetchText ($id) {
-    	$consulta = @mysql_query("SELECT english FROM texts WHERE id_element = '$id'" );
+    public function fetchText ($id, $lan) {
+    	$consulta = @mysql_query("SELECT $lan FROM texts WHERE id_element = '$id'" );
 		$resultado = @mysql_fetch_array($consulta);
-		echo $resultado['english'];
+		echo $resultado[$lan];
 	}
 
 }

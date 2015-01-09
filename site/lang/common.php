@@ -26,14 +26,17 @@ $lang = 'en';
 switch ($lang) {
   case 'en':
   $lang_file = 'lang.en.php';
+ //global $la = 'en';
   break;
 
   case 'es':
   $lang_file = 'lang.es.php';
+  //global $la = 'es';
   break;
 
   default:
   $lang_file = 'lang.en.php';
+  //global $la = 'en';
 
 }
 
