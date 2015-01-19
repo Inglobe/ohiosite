@@ -104,7 +104,7 @@ if (!isset($_SESSION['lang'])) {
     <div class="row header-inner">
 
           <div class="logo">
-             <a class="smoothscroll" href="#hero">Calvin App.</a>
+             <a class="smoothscroll" href="#hero">eCalving</a>
           </div>
 
           <nav id="nav-wrap">         

@@ -14,7 +14,7 @@
 	}else {
 		$origen = $_FILES['pdffile']['tmp_name'];
 		$_FILES['pdffile']['name']='instructions.pdf';
-	    $destino = '../pdf instructions file/'.$_FILES['pdffile']['name'];
+	    $destino = '../pdf instructions file/es/'.$_FILES['pdffile']['name'];
 	    move_uploaded_file($origen, $destino);
 	    header('Location: index.php?upstatus=ok#services');
 	}
@@ -22,5 +22,5 @@
 	
 	
 	//Codificamos el array a JSON (Esta sera la respuesta AJAX) 
-	echo json_encode($data);
+	/*echo json_encode($data);*/
 ?>

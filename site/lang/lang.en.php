@@ -106,4 +106,5 @@ $lang["th_activate"] = "Activate";
 $lang["title_reg"] = "Registers";
 $lang["title_acc"] = "Accounts Management";
 $lang["title_rounds"] = "Farms";
+$lang["download_conditions"] = "Terms and Conditions. Privacy Policy";
  ?>

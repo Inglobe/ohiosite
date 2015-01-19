@@ -18,7 +18,7 @@ if (!isset($_SESSION['lang'])) {
    <!--- Basic Page Needs
    ================================================== -->
   <meta charset="utf-8">
-	<title>Calvin App</title>
+	<title>eCalving</title>
 	<meta name="description" content="">  
 	<meta name="author" content="">
 
@@ -87,7 +87,7 @@ if (!isset($_SESSION['lang'])) {
       <i src="../img/en.png" height="30px" width="30px"></i>
 
 	      <div class="logo">
-	         <a class="smoothscroll" href="#hero">Calvin App.</a>
+	         <a class="smoothscroll" href="#hero">eCalving</a>
 	      </div>
 
 	      <nav id="nav-wrap">         
@@ -366,6 +366,71 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 
 	      </div>
 
+      <div class="row">
+        <?php 
+
+        if($_SESSION['username']=='admin'){
+          echo "<div class='twelve columns mob-whole'>
+
+          <div class='service-list bgrid-third s-bgrid-half mob-bgrid-whole'>
+
+            <div class='twelve columns mob-whole'>
+                <div class='icon-part'>
+                  <i class='icon-list'></i>                 
+                </div>
+                    
+                <h3><a href='http://ohio.inglobe.com.ar/site/terms%20and%20conditions/".$_SESSION['lang']."/tcpp.pdf' id='download_conditions' target='_blank'>".$lang['download_conditions']."</a></h3>
+            </div>
+
+            <div class='twelve columns mob-whole'> 
+                <div class='icon-part'>
+                  <i class='icon-cloud-upload'></i>                 
+                </div>
+                    
+                <h3 id='upload_pdf'>".$lang['upload_pdf']."</h3>
+                <form action='upload_tyc_".$_SESSION['lang'].".php' method='post' id='form' enctype='multipart/form-data'>
+                  <fieldset>
+                    <input type='file' id='tyc' name='tyc'>
+                    <button id='uploadPdf_btn' type='submit' style='visibility:visible;'>".$lang['uploadPdf_btn']."</button>
+                  </fieldset>
+                  
+                  <span id='upload_status_txt' style='visibility:hiden; display:none;'></span>";
+                  if(isset($_GET['upstatus']) && $_GET['upstatus']=='err'){
+                    echo "<span id='upload_status_txt1'>".$lang['upload_status_txt1']."</span>";
+                  } elseif (isset($_GET['upstatus']) && $_GET['upstatus']=='ok') {
+                    echo "<span id='upload_status_txt2'>".$lang['upload_status_txt2']."</span>";
+                  }                  
+
+                echo "</form>
+                
+            </div> <!--mob-whole-->
+
+
+
+          </div> <!-- /service-list -->
+
+        </div> <!-- /six -->";
+        } else {
+          echo "<div class='twelve columns'>
+
+          <div class='service-list bgrid-third s-bgrid-half mob-bgrid-whole'>
+
+
+                <div class='icon-part'>
+                  <i class='icon-arrow-down'></i>                 
+                </div>
+                    
+                 <h3><a href='../pdf instructions file/instructions.pdf' id='download_instructions1' target='_blank'>".$lang['download_conditions']."</a></h3>
+
+
+          </div> <!-- /service-list -->
+
+        </div> <!-- /twelve -->";
+        }
+         ?>
+        
+
+      </div> <!-- /row -->      
       </div>
 
       <br /><br /><br /><br />
@@ -423,7 +488,7 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                   <i class='icon-list'></i>                 
                 </div>
                     
-                <h3><a href='http://ohio.inglobe.com.ar/site/pdf%20instructions%20file/instructions.pdf' id='download_instructions' target='_blank'>Download instructions (PDF File)</a></h3>
+                <h3><a href='http://ohio.inglobe.com.ar/site/pdf%20instructions%20file/".$_SESSION['lang']."/instructions.pdf' id='download_instructions' target='_blank'>Download instructions (PDF File)</a></h3>
             </div>
 
             <div class='twelve columns mob-whole'> 
@@ -432,7 +497,7 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                 </div>
                     
                 <h3 id='upload_pdf'>".$lang['upload_pdf']."</h3>
-                <form action='upload.php' method='post' id='form' enctype='multipart/form-data'>
+                <form action='upload_".$_SESSION['lang'].".php' method='post' id='form' enctype='multipart/form-data'>
                   <fieldset>
                     <input type='file' id='pdffile' name='pdffile'>
                     <button id='uploadPdf_btn' type='submit' style='visibility:visible;'>".$lang['uploadPdf_btn']."</button>
@@ -464,7 +529,7 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                   <i class='icon-arrow-down'></i>                 
                 </div>
                     
-                 <h3><a href='../pdf instructions file/instructions.pdf' id='download_instructions1'>".$lang['download_instructions1']."</a></h3>
+                 <h3><a href='../pdf instructions file/instructions.pdf' id='download_instructions1' target='_blank'>".$lang['download_instructions1']."</a></h3>
 
 
           </div> <!-- /service-list -->
@@ -737,8 +802,8 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 
          </div>
 
-         <!-- <p class="copyright" style="color: #B2B2B2">&copy; Copyright 2014 Calvin App</p>        -->
-         <?php include_once 'footer.php'; ?>
+         <p class="copyright" style="color: #B2B2B2">&copy; Copyright 2015 eCalving</p>
+         <?php/* include_once 'footer.php'; */?>
 
          <div id="go-top">
             <a class="smoothscroll" title="Back to Top" href="#hero"><span>Top</span><i class="fa fa-long-arrow-up"></i></a>
