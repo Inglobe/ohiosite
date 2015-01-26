@@ -35,7 +35,7 @@ if ( $mail_typed == $mail_real ) {
     "X-Mailer: PHP/" . phpversion();
     $to = $mail_real;
     $subject = "Forgot your password";
-    $body = "<h4>Dear ".$user.",</h4><p>We received a request to change your password. <br />A new password was automatically generated for your account. Please use this key to login and create a new password. </p><br /><br /><h4>This is your new password: ".$rand_pass."</h4><br /><h5>Thank you, <br />Calving App Team.</h5>"; 
+    $body = "<p>Dear ".$user.",</p><p>We received a request to change your password. <br />A new password was automatically generated for your account. Please use this key to login and create a new password. </p><br /><br /><h4>This is your new password: ".$rand_pass."</h4><br /><h5>Thank you, <br />Calving App Team.</h5>"; 
     mail($to, $subject, $body, $headers);
     header('Location: index.php?success=true#SignIn');
 } else header('Location: index.php?success=false#SignIn');
