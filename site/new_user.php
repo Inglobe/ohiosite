@@ -28,13 +28,13 @@ if($existe = @mysql_fetch_object($query)){
 		//echo "<br>".$nombre. " ha sido registrado correctamente . Recibir&aacute; un email cuando el administrador active su cuenta.";
 
 	//mando mail al admin
-		 $headers = "From: info@test.ecalvin.com\r\n" .
+		 $headers = "From: info@ecalving.com\r\n" .
 	    "Reply-To: info@test.ecalvin.com\r\n".
 	    "Content-type: text/html; charset=iso-8859-1\r\n" .
 	    "X-Mailer: PHP/" . phpversion();
-	    $to= "info@test.ecalvin.com";
+	    $to= "info@ecalving.com";
 	    $subject = "New user registered";
-	    $body = "<h4>Admin,</h4><br /> <p>(This is an automatic message)<br />A new user ( ".$nombre." ) has been registered on the Calvin APP's website.<br />Please visit the site, login with the admin account and check the 'Accounts' section for further details and/or activate the new account.</p><br /><br /><h5>Thank you, <br />Calvin App Website.</h5>";
+	    $body = "<p>Admin,</p><br /> <p>(This is an automatic message)<br />A new user ( ".$nombre." ) has been registered on the Calvin APP's website.<br />Please visit the site, login with the admin account and check the 'Accounts' section for further details and/or activate the new account.</p><br /><br /><p>Thank you, <br />Calvin App Website.</p>";
 	    mail($to, $subject, $body, $headers);
 		header('Location: index.php?reg=ok');
 }
