@@ -420,7 +420,7 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                   <i class='icon-arrow-down'></i>                 
                 </div>
                     
-                 <h3><a href='../pdf instructions file/instructions.pdf' id='download_instructions1' target='_blank'>".$lang['download_conditions']."</a></h3>
+                 <h3><a href='../pdf instructions file/".$_SESSION["lang"]."/instructions.pdf' id='download_instructions1' target='_blank'>".$lang['download_conditions']."</a></h3>
 
 
           </div> <!-- /service-list -->
@@ -529,7 +529,7 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                   <i class='icon-arrow-down'></i>                 
                 </div>
                     
-                 <h3><a href='../pdf instructions file/instructions.pdf' id='download_instructions1' target='_blank'>".$lang['download_instructions1']."</a></h3>
+                 <h3><a href='../pdf instructions file/".$_SESSION["lang"]."/instructions.pdf' id='download_instructions1' target='_blank'>".$lang['download_instructions1']."</a></h3>
 
 
           </div> <!-- /service-list -->
