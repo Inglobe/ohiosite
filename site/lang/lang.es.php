@@ -106,6 +106,8 @@ $lang["th_activate"] = "Activar";
 $lang["title_reg"] = "Visualizacion de Registros";
 $lang["title_acc"] = "Gestion de cuentas";
 $lang["title_rounds"] = "Rodeos";
-$lang["download_conditions"] = "Términos y Condiciones. Política de Privacidad.";
-
+$lang["download_conditions"] = "Términos y Condiciones";
+$lang["download_privacy"] = "Política de privacidad";
+$lang["upload_terms"] = "Subir los Términos y Condiciones (SOLO ADMINISTRADOR)";
+$lang["upload_privacy"] = "Subir las políticas de privacidad (SOLO ADMINISTRADOR)";
  ?>

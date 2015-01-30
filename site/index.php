@@ -380,6 +380,7 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                 </div>
                     
                 <h3><a href='http://ohio.inglobe.com.ar/site/terms%20and%20conditions/".$_SESSION['lang']."/tcpp.pdf' id='download_conditions' target='_blank'>".$lang['download_conditions']."</a></h3>
+                <h3><a href='../privacy policy/".$_SESSION["lang"]."/privacy.pdf' id='download_instructions2' target='_blank'>".$lang['download_privacy']."</a></h3>
             </div>
 
             <div class='twelve columns mob-whole'> 
@@ -387,13 +388,19 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                   <i class='icon-cloud-upload'></i>                 
                 </div>
                     
-                <h3 id='upload_pdf'>".$lang['upload_pdf']."</h3>
-                <form action='upload_tyc_".$_SESSION['lang'].".php' method='post' id='form' enctype='multipart/form-data'>
+                <h3 id='upload_terms'>".$lang['upload_terms']."</h3>
+                <form action='upload_tyc_".$_SESSION['lang'].".php' method='post' id='form_tyc' enctype='multipart/form-data'>
                   <fieldset>
                     <input type='file' id='tyc' name='tyc'>
-                    <button id='uploadPdf_btn' type='submit' style='visibility:visible;'>".$lang['uploadPdf_btn']."</button>
-                  </fieldset>
-                  
+                    <button id='uploadPdfTyC_btn' type='submit' style='visibility:visible;'>".$lang['uploadPdf_btn']."</button>
+                  </fieldset></form>
+                <h3 id='upload_privacy'>".$lang['upload_privacy']."</h3>
+                <form action='upload_privacy_".$_SESSION['lang'].".php' method='post' id='form_privacy' enctype='multipart/form-data'>
+                  <fieldset>
+                    <input type='file' id='privacy' name='privacy'>
+                    <button id='uploadPdfPrivacy_btn' type='submit' style='visibility:visible;'>".$lang['uploadPdf_btn']."</button>
+                  </fieldset></form>  
+
                   <span id='upload_status_txt' style='visibility:hiden; display:none;'></span>";
                   if(isset($_GET['upstatus']) && $_GET['upstatus']=='err'){
                     echo "<span id='upload_status_txt1'>".$lang['upload_status_txt1']."</span>";
@@ -401,8 +408,10 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
                     echo "<span id='upload_status_txt2'>".$lang['upload_status_txt2']."</span>";
                   }                  
 
-                echo "</form>
+                echo "
                 
+
+
             </div> <!--mob-whole-->
 
 
@@ -415,12 +424,9 @@ if(isset($_GET['success']) && $_GET['success']=='true'){
 
           <div class='service-list bgrid-third s-bgrid-half mob-bgrid-whole'>
 
-
-                <div class='icon-part'>
-                  <i class='icon-arrow-down'></i>                 
-                </div>
-                    
-                 <h3><a href='../pdf instructions file/".$_SESSION["lang"]."/instructions.pdf' id='download_instructions1' target='_blank'>".$lang['download_conditions']."</a></h3>
+                   
+                 <h3><a href='../terms and conditions/".$_SESSION["lang"]."/tcpp.pdf' id='download_instructions1' target='_blank'>".$lang['download_conditions']."</a></h3>
+                 <h3><a href='../privacy policy/".$_SESSION["lang"]."/privacy.pdf' id='download_instructions2' target='_blank'>".$lang['download_privacy']."</a></h3>
 
 
           </div> <!-- /service-list -->
